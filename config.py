@@ -4,8 +4,8 @@
 """
 
 # 教务系统配置
-USERNAME = '2450341053'
-PASSWORD = '20060103'
+USERNAME = '你的学号'
+PASSWORD = '你的密码-默认出生日期'
 BASE_URL = 'https://jwxt.hue.edu.cn'
 
 # 学期配置
