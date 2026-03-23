@@ -2,7 +2,7 @@
 
 一个为 HUE 教务系统设计的轻量课表查看器：
 后端使用 Flask 实时拉取课表，前端以卡片化网格展示，支持按周筛选并在周末自动跳转到下一周。
-<img src="show-pictures/image.png" alt="课表预览图1" width="320" />
+<img src="show-pictures/image.png" alt="课表预览图1" width="520" />
 <img src="show-pictures/image2.png" alt="课表预览图2" height="320" />
 ---
 
