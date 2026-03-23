@@ -142,6 +142,3 @@ pip install -r requirements.txt
 - 不要将真实账号密码提交到仓库
 - 建议本地开发时通过环境变量或本地配置覆盖敏感信息
 
-## License
-
-当前仓库未声明 License。如需开源发布，建议补充 `LICENSE` 文件（如 MIT）。
