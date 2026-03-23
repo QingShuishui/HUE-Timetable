@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HUE课程表 ☁️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div id="loading" class="loading-overlay">
+            <div class="loading-dots">
+                <div class="dot-item"></div>
+                <div class="dot-item"></div>
+                <div class="dot-item"></div>
+                <div class="dot-item"></div>
+            </div>
+            <div class="loading-text">
+                加载中<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+            </div>
+        </div>
+
+        <div id="error-msg" class="error">
+            <h2>哎呀，出错了 (qwq)</h2>
+            <p id="error-text"></p>
+        </div>
+
+        <header>
+            <div class="title-group">
+                <h1>课程表 ✏️</h1>
+                <p id="semester-info">正在加载学期信息...</p>
+                <p id="generated-at" style="font-size: 0.8rem;"></p>
+            </div>
+            
+            <div class="week-selector">
+                <select id="weekSelect" onchange="changeWeek()">
+                    <option value="" {% if selected_week is none %}selected{% endif %}>(全部课程)</option>
+                    {% if current_week %}
+                    <option value="current" {% if selected_week == current_week %}selected{% endif %}>
+                        当前周 (第{{ current_week }}周) ⭐
+                    </option>
+                    {% endif %}
+                    {% for w in range(1, 31) %}
+                    <option value="{{ w }}" {% if selected_week == w %}selected{% endif %}>
+                        第{{ w }}周{% if w == current_week %} ←{% endif %}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </header>
+
+        <!-- 移动端日期导航栏 -->
+        <div class="date-strip" id="dateStrip">
+            <div class="time-label">时间</div>
+            <div class="date-item" data-day="0">
+                <span class="weekday">周一</span>
+                <span class="date-num">-</span>
+            </div>
+            <div class="date-item" data-day="1">
+                <span class="weekday">周二</span>
+                <span class="date-num">-</span>
+            </div>
+            <div class="date-item" data-day="2">
+                <span class="weekday">周三</span>
+                <span class="date-num">-</span>
+            </div>
+            <div class="date-item" data-day="3">
+                <span class="weekday">周四</span>
+                <span class="date-num">-</span>
+            </div>
+            <div class="date-item" data-day="4">
+                <span class="weekday">周五</span>
+                <span class="date-num">-</span>
+            </div>
+            <div class="date-item" data-day="5">
+                <span class="weekday">周六</span>
+                <span class="date-num">-</span>
+            </div>
+            <div class="date-item" data-day="6">
+                <span class="weekday">周日</span>
+                <span class="date-num">-</span>
+            </div>
+        </div>
+
+        <div class="timetable" id="timetable">
+            <div class="day-header"></div> 
+            <div class="day-header">MON<br>周一</div>
+            <div class="day-header">TUE<br>周二</div>
+            <div class="day-header">WED<br>周三</div>
+            <div class="day-header">THU<br>周四</div>
+            <div class="day-header">FRI<br>周五</div>
+            <div class="day-header">SAT<br>周六</div>
+            <div class="day-header">SUN<br>周日</div>
+            <!-- JS will inject slots here -->
+        </div>
+        
+        <!-- 移动端底部导航栏 -->
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label">课程表</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">📚</span>
+                <span class="nav-label">课程</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">🔔</span>
+                <span class="nav-label">通知</span>
+            </a>
+            <a href="#" class="nav-item">
+                <span class="nav-icon">👤</span>
+                <span class="nav-label">我的</span>
+            </a>
+        </nav>
+        
+        <footer>
+            <p>Keep learning, keep shining! (｡•̀ᴗ-)✧</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // 将后端的周末标志传递给前端
+        const isWeekendFromServer = {{ 'true' if is_weekend else 'false' }};
+    </script>
+</body>
+</html>
