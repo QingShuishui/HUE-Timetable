@@ -3,10 +3,22 @@
 配置文件 - 课表系统配置
 """
 
+import os
+
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = None
+
+
+if load_dotenv is not None:
+    load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env"))
+
+
 # 教务系统配置
-USERNAME = '你的学号'
-PASSWORD = '你的密码-默认出生日期'
-BASE_URL = 'https://jwxt.hue.edu.cn'
+USERNAME = os.environ.get("USERNAME", "")
+PASSWORD = os.environ.get("PASSWORD", "")
+BASE_URL = os.environ.get("BASE_URL", "https://jwxt.hue.edu.cn")
 
 # 学期配置
 SEMESTER_START_DATE = '2026-03-02'  # 新学期第一周开始日期（2026年3月2日）
@@ -19,7 +31,7 @@ PORT = 5004
 # 课程时间段配置
 TIME_SLOTS = [
     '08:00-09:40',
-    '10:00-11:40', 
+    '10:00-11:40',
     '14:00-15:40',
     '16:00-17:40',
     '18:30-20:10',

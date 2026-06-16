@@ -24,13 +24,13 @@ def extract_location_code(location):
     return location
 
 
-def get_current_week():
+def get_current_week(semester_start_date=SEMESTER_START_DATE):
     """
     根据学期开始日期计算当前周次
     返回: 当前周次 (1-30)，如果不在学期内返回1（默认显示第一周）
     """
     try:
-        start_date = datetime.strptime(SEMESTER_START_DATE, '%Y-%m-%d')
+        start_date = datetime.strptime(semester_start_date, '%Y-%m-%d')
         current_date = datetime.now()
         
         # 计算距离开学的天数
@@ -52,11 +52,11 @@ def get_current_week():
         return 1
 
 
-def get_next_week():
+def get_next_week(semester_start_date=SEMESTER_START_DATE):
     """
     获取下一周的周次
     """
-    current = get_current_week()
+    current = get_current_week(semester_start_date)
     if current and current < 30:
         return current + 1
     return current
